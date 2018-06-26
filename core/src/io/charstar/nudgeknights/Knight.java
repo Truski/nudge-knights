@@ -1,5 +1,6 @@
 package io.charstar.nudgeknights;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -23,16 +24,23 @@ public class Knight {
   }
 
   public void update(float delta){
+    if(position.y < 0){
+      position.y = 0;
+      velocity.y = 0;
+      inAir = false;
+    }
     acceleration.y = inAir ? -9.8f : 0;
+    Vector2 acceleration = new Vector2(this.acceleration).scl(delta);
+    velocity.add(acceleration);
 
-    velocity.add(acceleration.scl(delta));
-    position.add(velocity.scl(delta));
+    Vector2 velocity = new Vector2(this.velocity).scl(delta);
+    position.add(velocity);
   }
 
   public void jump(){
     if(inAir) return;
 
-    velocity.y = 15f;
+    velocity.y = 35;
     inAir = true;
   }
 }
