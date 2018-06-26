@@ -43,4 +43,12 @@ public class Knight {
     velocity.y = 35;
     inAir = true;
   }
+
+  public void moveLeft(){
+    velocity.x -= 10;
+  }
+
+  public void moveRight(){
+    velocity.x += 10;
+  }
 }

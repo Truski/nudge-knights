@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class NudgeKnights extends Game implements Screen {
+public class NudgeKnights extends Game implements Screen, InputProcessor {
   SpriteBatch batch;
   Knight knight;
 
@@ -14,6 +14,7 @@ public class NudgeKnights extends Game implements Screen {
     batch = new SpriteBatch();
     knight = new Knight(0, 0);
     setScreen(this);
+    Gdx.input.setInputProcessor(this);
   }
 
   @Override
@@ -44,11 +45,6 @@ public class NudgeKnights extends Game implements Screen {
   @Override
   public void render(float delta) {
 
-    // Process events
-    if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-      knight.jump();
-    }
-
     // Update Game
     knight.update(delta);
 
@@ -65,5 +61,68 @@ public class NudgeKnights extends Game implements Screen {
   @Override
   public void dispose () {
     batch.dispose();
+  }
+
+  @Override
+  public boolean keyDown(int keycode) {
+    switch(keycode){
+      case Input.Keys.SPACE:
+        knight.jump();
+        break;
+      case Input.Keys.LEFT:
+        knight.moveLeft();
+        break;
+      case Input.Keys.RIGHT:
+        knight.moveRight();
+        break;
+      default:
+        System.out.println("Unknown key pressed: " + keycode);
+    }
+    return false;
+  }
+
+  @Override
+  public boolean keyUp(int keycode) {
+    switch(keycode){
+      case Input.Keys.LEFT:
+        knight.moveRight();
+        break;
+      case Input.Keys.RIGHT:
+        knight.moveLeft();
+        break;
+      default:
+        System.out.println("Unknown key released: " + keycode);
+    }
+    return false;
+  }
+
+  @Override
+  public boolean keyTyped(char character) {
+    return false;
+  }
+
+  @Override
+  public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    return false;
+  }
+
+  @Override
+  public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+    return false;
+  }
+
+  @Override
+  public boolean touchDragged(int screenX, int screenY, int pointer) {
+    return false;
+  }
+
+  @Override
+  public boolean mouseMoved(int screenX, int screenY) {
+    return false;
+  }
+
+  @Override
+  public boolean scrolled(int amount) {
+    return false;
   }
 }
