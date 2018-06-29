@@ -14,10 +14,10 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   static final int WORLD_WIDTH = 1600;
   static final int WORLD_HEIGHT = 900;
 
-  SpriteBatch batch;
-  ShapeRenderer shapeRenderer;
-  Knight knight;
-  OrthographicCamera camera;
+  private SpriteBatch batch;
+  private ShapeRenderer shapeRenderer;
+  private Knight knight;
+  private OrthographicCamera camera;
 
   @Override
   public void create () {
