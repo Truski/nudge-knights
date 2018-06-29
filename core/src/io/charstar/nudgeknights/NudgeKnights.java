@@ -2,17 +2,36 @@ package io.charstar.nudgeknights;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import static com.badlogic.gdx.graphics.GL20.GL_BLEND;
 
 public class NudgeKnights extends Game implements Screen, InputProcessor {
+
+  static final int WORLD_WIDTH = 1600;
+  static final int WORLD_HEIGHT = 900;
+
   SpriteBatch batch;
+  ShapeRenderer shapeRenderer;
   Knight knight;
+  OrthographicCamera camera;
 
   @Override
   public void create () {
     batch = new SpriteBatch();
+    shapeRenderer = new ShapeRenderer();
     knight = new Knight(0, 0);
+
+    camera = new OrthographicCamera(160, 90);
+    camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+    camera.update();
+
+    batch.setProjectionMatrix(camera.combined);
+    shapeRenderer.setProjectionMatrix(camera.combined);
+
     setScreen(this);
     Gdx.input.setInputProcessor(this);
   }
@@ -56,6 +75,17 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
     knight.draw(batch);
 
     batch.end();
+
+    Gdx.gl.glEnable(GL_BLEND);
+
+    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+    shapeRenderer.setColor(0, 0, 1, .5f);
+
+    knight.draw(shapeRenderer);
+
+    shapeRenderer.end();
+
+    Gdx.gl.glDisable(GL_BLEND);
   }
 
   @Override
