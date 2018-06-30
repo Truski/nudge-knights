@@ -11,6 +11,7 @@ public class Knight {
   private static final int WIDTH = 42;
   private static final int HEIGHT = 42;
   private static final int ANIMATION_FRAMERATE = 15;
+  private static final int SPEED = 10;
 
   private static TextureRegion[] idle = TextureRegion.split(
       new Texture("idle.png"), WIDTH, HEIGHT)[0];
@@ -29,15 +30,15 @@ public class Knight {
     position = new Vector2(x, y);
     velocity = new Vector2();
     acceleration = new Vector2();
-    box = new Rectangle(-WIDTH /2, -HEIGHT /2, WIDTH, HEIGHT);
+    box = new Rectangle(-WIDTH / 2, -HEIGHT / 2, WIDTH, HEIGHT);
 
     inAir = false;
     turnDirection = 1;
   }
 
   public void draw(SpriteBatch batch){
-    batch.draw(idle[(int)animation], position.x - WIDTH / 2, position.y - HEIGHT / 2, WIDTH /2, HEIGHT /2,
-        WIDTH, HEIGHT, turnDirection, 1, 0);
+    batch.draw(idle[(int)animation], position.x - WIDTH / 2, position.y - HEIGHT / 2,
+        WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT, turnDirection, 1, 0);
   }
 
   public void draw(ShapeRenderer renderer){
@@ -72,12 +73,12 @@ public class Knight {
   }
 
   public void moveLeft(){
-    velocity.x -= 10;
+    velocity.x -= SPEED;
     if(velocity.x != 0) turnDirection = -1;
   }
 
   public void moveRight(){
-    velocity.x += 10;
+    velocity.x += SPEED;
     if(velocity.x != 0) turnDirection = 1;
   }
 

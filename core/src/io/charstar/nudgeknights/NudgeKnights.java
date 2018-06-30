@@ -15,6 +15,7 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   // Constants
   static final int WORLD_WIDTH = 1600;
   static final int WORLD_HEIGHT = 900;
+  static final int CAMERA_SPEED = 10;
 
   // World
   private Knight knight;
@@ -131,16 +132,16 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
         knight.moveRight();
         break;
       case Input.Keys.LEFT:
-        cameraVelocity.x -= 10;
+        cameraVelocity.x -= CAMERA_SPEED;
         break;
       case Input.Keys.RIGHT:
-        cameraVelocity.x += 10;
+        cameraVelocity.x += CAMERA_SPEED;
         break;
       case Input.Keys.UP:
-        cameraVelocity.y += 10;
+        cameraVelocity.y += CAMERA_SPEED;
         break;
       case Input.Keys.DOWN:
-        cameraVelocity.y -= 10;
+        cameraVelocity.y -= CAMERA_SPEED;
         break;
       case Input.Keys.Y:
         cameraLocked = 1 - cameraLocked;
@@ -160,16 +161,16 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
         knight.moveLeft();
         break;
       case Input.Keys.LEFT:
-        cameraVelocity.x += 10;
+        cameraVelocity.x += CAMERA_SPEED;
         break;
       case Input.Keys.RIGHT:
-        cameraVelocity.x -= 10;
+        cameraVelocity.x -= CAMERA_SPEED;
         break;
       case Input.Keys.UP:
-        cameraVelocity.y -= 10;
+        cameraVelocity.y -= CAMERA_SPEED;
         break;
       case Input.Keys.DOWN:
-        cameraVelocity.y += 10;
+        cameraVelocity.y += CAMERA_SPEED;
       default:
         System.out.println("Unknown key released: " + keycode);
     }
