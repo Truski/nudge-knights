@@ -13,9 +13,11 @@ import static com.badlogic.gdx.graphics.GL20.GL_BLEND;
 public class NudgeKnights extends Game implements Screen, InputProcessor {
 
   // Constants
-  static final int WORLD_WIDTH = 1600;
-  static final int WORLD_HEIGHT = 900;
-  static final int CAMERA_SPEED = 10;
+  private static final int WORLD_WIDTH = 1600;
+  private static final int WORLD_HEIGHT = 900;
+  private static final int CAMERA_SPEED = 10;
+  private static final int VIEWPORT_WIDTH = 160;
+  private static final int VIEWPORT_HEIGHT = 90;
 
   // World
   private Knight knight;
@@ -36,7 +38,7 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
     shapeRenderer = new ShapeRenderer();
     knight = new Knight(0, 0);
 
-    camera = new OrthographicCamera(160, 90);
+    camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
     camera.update();
 

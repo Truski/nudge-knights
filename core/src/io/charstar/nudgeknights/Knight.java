@@ -10,8 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 public class Knight {
   private static final int WIDTH = 42;
   private static final int HEIGHT = 42;
-  private static final int ANIMATION_FRAMERATE = 15;
   private static final int SPEED = 10;
+  private static final float GRAVITY = -9.8f;
+  private static final int ANIMATION_FRAMERATE = 15;
+  private static final int ANIMATION_FRAMES = 4;
 
   private static TextureRegion[] idle = TextureRegion.split(
       new Texture("idle.png"), WIDTH, HEIGHT)[0];
@@ -47,14 +49,14 @@ public class Knight {
 
   public void update(float delta){
     animation += delta * ANIMATION_FRAMERATE;
-    if(animation > 4) animation = 0;
+    if(animation >= ANIMATION_FRAMES) animation = 0;
 
     if(position.y < 0){
       position.y = 0;
       velocity.y = 0;
       inAir = false;
     }
-    acceleration.y = inAir ? -9.8f : 0;
+    acceleration.y = inAir ? GRAVITY : 0;
     Vector2 acceleration = new Vector2(this.acceleration).scl(delta);
     velocity.add(acceleration);
 
