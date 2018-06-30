@@ -15,11 +15,12 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   // Constants
   private static final int WORLD_WIDTH = 1600;
   private static final int WORLD_HEIGHT = 900;
-  private static final int CAMERA_SPEED = 10;
+  private static final int CAMERA_SPEED = 35;
   private static final int VIEWPORT_WIDTH = 160;
   private static final int VIEWPORT_HEIGHT = 90;
 
   // World
+  private Background background;
   private Knight knight;
 
   // Camera
@@ -36,6 +37,7 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   public void create () {
     batch = new SpriteBatch();
     shapeRenderer = new ShapeRenderer();
+    background = new Background();
     knight = new Knight(0, 0);
 
     camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
@@ -83,10 +85,11 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
 
     // Update World
     knight.update(delta);
+    background.update(cameraPosition);
 
     // Update Camera
     if(cameraLocked == 1){
-      cameraPosition.set(knight.getPosition(), 0);
+      cameraPosition.set(knight.getPosition().x, VIEWPORT_HEIGHT / 2, 0);
     } else if(cameraLocked == 0){
       cameraPosition.add(new Vector3(cameraVelocity).scl(delta));
     }
@@ -100,6 +103,7 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     batch.begin();
 
+    background.draw(batch);
     knight.draw(batch);
 
     batch.end();
