@@ -39,6 +39,7 @@ public class Knight {
     states = new State[State.NUM_STATES];
     states[State.STAND] = new Stand();
     states[State.WALK] = new Walk();
+    states[State.ATTACK] = new Attack();
     for(State s : states){
       s.setKnight(this);
     }
@@ -95,6 +96,10 @@ public class Knight {
 
   public void stopMovingRight(){
     state.stopMovingRight();
+  }
+
+  public void attack(){
+    state.attack();
   }
 
   public Vector2 getPosition(){

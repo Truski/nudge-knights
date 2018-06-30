@@ -196,6 +196,7 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
 
   @Override
   public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    knight.attack();
     return false;
   }
 

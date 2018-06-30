@@ -3,9 +3,10 @@ package io.charstar.nudgeknights;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class State {
-  static final int NUM_STATES = 2;
+  static final int NUM_STATES = 3;
   static final int STAND = 0;
   static final int WALK = 1;
+  static final int ATTACK = 2;
 
   Knight knight;
 
@@ -15,6 +16,7 @@ public abstract class State {
   public abstract void moveRight();
   public abstract void stopMovingLeft();
   public abstract void stopMovingRight();
+  public abstract void attack();
 
   public abstract void draw(SpriteBatch batch);
 
