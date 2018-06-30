@@ -33,6 +33,9 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   private SpriteBatch batch;
   private ShapeRenderer shapeRenderer;
 
+  // Debug
+  private boolean debug;
+
   @Override
   public void create () {
     batch = new SpriteBatch();
@@ -53,6 +56,8 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
     cameraVelocity = new Vector3();
     cameraPosition = new Vector3();
     cameraLocked = 1;
+
+    debug = true;
   }
 
   @Override
@@ -108,16 +113,16 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
 
     batch.end();
 
-    Gdx.gl.glEnable(GL_BLEND);
+    if(debug){
+      Gdx.gl.glEnable(GL_BLEND);
+      shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+      shapeRenderer.setColor(0, 0, 1, .5f);
 
-    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-    shapeRenderer.setColor(0, 0, 1, .5f);
+      knight.draw(shapeRenderer);
 
-    knight.draw(shapeRenderer);
-
-    shapeRenderer.end();
-
-    Gdx.gl.glDisable(GL_BLEND);
+      shapeRenderer.end();
+      Gdx.gl.glDisable(GL_BLEND);
+    }
   }
 
   @Override
@@ -151,6 +156,9 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
         break;
       case Input.Keys.Y:
         cameraLocked = 1 - cameraLocked;
+      case Input.Keys.GRAVE:
+        debug = !debug;
+        break;
       default:
         System.out.println("Unknown key pressed: " + keycode);
     }
