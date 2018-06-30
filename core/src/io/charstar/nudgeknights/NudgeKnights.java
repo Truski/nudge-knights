@@ -6,18 +6,27 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector3;
 
 import static com.badlogic.gdx.graphics.GL20.GL_BLEND;
 
 public class NudgeKnights extends Game implements Screen, InputProcessor {
 
+  // Constants
   static final int WORLD_WIDTH = 1600;
   static final int WORLD_HEIGHT = 900;
 
+  // World
+  private Knight knight;
+
+  // Camera
+  private OrthographicCamera camera;
+  private Vector3 cameraPosition;
+  private int cameraLocked;
+
+  // Rendering
   private SpriteBatch batch;
   private ShapeRenderer shapeRenderer;
-  private Knight knight;
-  private OrthographicCamera camera;
 
   @Override
   public void create () {
@@ -34,6 +43,9 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
 
     setScreen(this);
     Gdx.input.setInputProcessor(this);
+
+    cameraPosition = new Vector3();
+    cameraLocked = 1;
   }
 
   @Override
@@ -64,11 +76,20 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   @Override
   public void render(float delta) {
 
-    // Update Game
+    // Update World
     knight.update(delta);
 
+    // Update Camera
+    if(cameraLocked == 1){
+      cameraPosition.set(knight.getPosition(), 0);
+      camera.position.set(cameraPosition);
+    }
+    camera.update();
+    batch.setProjectionMatrix(camera.combined);
+    shapeRenderer.setProjectionMatrix(camera.combined);
+
     // Render Game
-    Gdx.gl.glClearColor(1, 0, 0, 1);
+    Gdx.gl.glClearColor(cameraLocked, 1 - cameraLocked, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     batch.begin();
 
@@ -105,6 +126,20 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
       case Input.Keys.D:
         knight.moveRight();
         break;
+      case Input.Keys.LEFT:
+        camera.translate(-5, 0);
+        break;
+      case Input.Keys.RIGHT:
+        camera.translate(5, 0);
+        break;
+      case Input.Keys.UP:
+        camera.translate(0, 5);
+        break;
+      case Input.Keys.DOWN:
+        camera.translate(0, -5);
+        break;
+      case Input.Keys.Y:
+        cameraLocked = 1 - cameraLocked;
       default:
         System.out.println("Unknown key pressed: " + keycode);
     }

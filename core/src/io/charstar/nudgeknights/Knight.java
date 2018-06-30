@@ -36,12 +36,12 @@ public class Knight {
   }
 
   public void draw(SpriteBatch batch){
-    batch.draw(idle[(int)animation], position.x, position.y, WIDTH /2, HEIGHT /2,
+    batch.draw(idle[(int)animation], position.x - WIDTH / 2, position.y - HEIGHT / 2, WIDTH /2, HEIGHT /2,
         WIDTH, HEIGHT, turnDirection, 1, 0);
   }
 
   public void draw(ShapeRenderer renderer){
-    renderer.rect(box.x, box.y, box.width, box.height);
+    renderer.rect(box.x - box.width / 2, box.y - box.height / 2, box.width, box.height);
   }
 
   public void update(float delta){
@@ -79,5 +79,9 @@ public class Knight {
   public void moveRight(){
     velocity.x += 10;
     if(velocity.x != 0) turnDirection = 1;
+  }
+
+  public Vector2 getPosition(){
+    return position;
   }
 }
