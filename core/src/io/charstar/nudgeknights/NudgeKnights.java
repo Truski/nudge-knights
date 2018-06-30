@@ -99,10 +99,10 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
       case Input.Keys.SPACE:
         knight.jump();
         break;
-      case Input.Keys.LEFT:
+      case Input.Keys.A:
         knight.moveLeft();
         break;
-      case Input.Keys.RIGHT:
+      case Input.Keys.D:
         knight.moveRight();
         break;
       default:
@@ -114,10 +114,10 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   @Override
   public boolean keyUp(int keycode) {
     switch(keycode){
-      case Input.Keys.LEFT:
+      case Input.Keys.A:
         knight.moveRight();
         break;
-      case Input.Keys.RIGHT:
+      case Input.Keys.D:
         knight.moveLeft();
         break;
       default:
