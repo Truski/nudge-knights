@@ -21,6 +21,7 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
 
   // Camera
   private OrthographicCamera camera;
+  private Vector3 cameraVelocity;
   private Vector3 cameraPosition;
   private int cameraLocked;
 
@@ -44,6 +45,7 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
     setScreen(this);
     Gdx.input.setInputProcessor(this);
 
+    cameraVelocity = new Vector3();
     cameraPosition = new Vector3();
     cameraLocked = 1;
   }
@@ -82,8 +84,10 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
     // Update Camera
     if(cameraLocked == 1){
       cameraPosition.set(knight.getPosition(), 0);
-      camera.position.set(cameraPosition);
+    } else if(cameraLocked == 0){
+      cameraPosition.add(new Vector3(cameraVelocity).scl(delta));
     }
+    camera.position.set(cameraPosition);
     camera.update();
     batch.setProjectionMatrix(camera.combined);
     shapeRenderer.setProjectionMatrix(camera.combined);
@@ -127,16 +131,16 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
         knight.moveRight();
         break;
       case Input.Keys.LEFT:
-        camera.translate(-5, 0);
+        cameraVelocity.x -= 10;
         break;
       case Input.Keys.RIGHT:
-        camera.translate(5, 0);
+        cameraVelocity.x += 10;
         break;
       case Input.Keys.UP:
-        camera.translate(0, 5);
+        cameraVelocity.y += 10;
         break;
       case Input.Keys.DOWN:
-        camera.translate(0, -5);
+        cameraVelocity.y -= 10;
         break;
       case Input.Keys.Y:
         cameraLocked = 1 - cameraLocked;
@@ -155,6 +159,17 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
       case Input.Keys.D:
         knight.moveLeft();
         break;
+      case Input.Keys.LEFT:
+        cameraVelocity.x += 10;
+        break;
+      case Input.Keys.RIGHT:
+        cameraVelocity.x -= 10;
+        break;
+      case Input.Keys.UP:
+        cameraVelocity.y -= 10;
+        break;
+      case Input.Keys.DOWN:
+        cameraVelocity.y += 10;
       default:
         System.out.println("Unknown key released: " + keycode);
     }
