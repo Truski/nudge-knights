@@ -61,31 +61,6 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   }
 
   @Override
-  public void show() {
-
-  }
-
-  @Override
-  public void hide() {
-
-  }
-
-  @Override
-  public void resize(int width, int height) {
-
-  }
-
-  @Override
-  public void pause() {
-
-  }
-
-  @Override
-  public void resume() {
-
-  }
-
-  @Override
   public void render(float delta) {
 
     // Update World
@@ -126,8 +101,34 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   }
 
   @Override
+  public void show() {
+
+  }
+
+  @Override
+  public void hide() {
+
+  }
+
+  @Override
+  public void resize(int width, int height) {
+
+  }
+
+  @Override
+  public void pause() {
+
+  }
+
+  @Override
+  public void resume() {
+
+  }
+
+  @Override
   public void dispose () {
     batch.dispose();
+    shapeRenderer.dispose();
   }
 
   @Override
