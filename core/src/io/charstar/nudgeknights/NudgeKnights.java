@@ -3,12 +3,9 @@ package io.charstar.nudgeknights;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
-
-import static com.badlogic.gdx.graphics.GL20.GL_BLEND;
 
 public class NudgeKnights extends Game implements Screen, InputProcessor {
 
@@ -89,14 +86,14 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
     batch.end();
 
     if(debug){
-      Gdx.gl.glEnable(GL_BLEND);
+      Gdx.gl.glEnable(GL20.GL_BLEND);
       shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
       shapeRenderer.setColor(0, 0, 1, .5f);
 
       knight.draw(shapeRenderer);
 
       shapeRenderer.end();
-      Gdx.gl.glDisable(GL_BLEND);
+      Gdx.gl.glDisable(GL20.GL_BLEND);
     }
   }
 
