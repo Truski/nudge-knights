@@ -1,23 +1,18 @@
 package io.charstar.nudgeknights;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Knight {
-  private static final int WIDTH = 42;
-  private static final int HEIGHT = 42;
-  private static final int SPEED = 50;
+  static final int WIDTH = 42;
+  static final int HEIGHT = 42;
+  static final int SPEED = 50;
   private static final float GRAVITY = -20f;
   private static final int ANIMATION_FRAMERATE = 15;
   private static final int ANIMATION_FRAMES = 4;
   private static final int FLOOR = 0;
-
-  private static TextureRegion[] idle = TextureRegion.split(
-      new Texture("idle.png"), WIDTH, HEIGHT)[0];
 
   private Vector2 position;
   private Vector2 velocity;
@@ -27,7 +22,10 @@ public class Knight {
   // State information
   private boolean inAir;
   private float animation = 0;
-  private byte turnDirection;
+  private int turnDirection;
+
+  private State state;
+  private State[] states;
 
   public Knight(float x, float y) {
     position = new Vector2(WIDTH / 2, HEIGHT / 2);
@@ -37,11 +35,18 @@ public class Knight {
 
     inAir = false;
     turnDirection = 1;
+
+    states = new State[State.NUM_STATES];
+    states[State.STAND] = new Stand();
+    states[State.WALK] = new Walk();
+    for(State s : states){
+      s.setKnight(this);
+    }
+    setState(State.STAND);
   }
 
   public void draw(SpriteBatch batch){
-    batch.draw(idle[(int)animation], position.x - WIDTH / 2, position.y - HEIGHT / 2,
-        WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT, turnDirection, 1, 0);
+    state.draw(batch);
   }
 
   public void draw(ShapeRenderer renderer){
@@ -49,6 +54,7 @@ public class Knight {
   }
 
   public void update(float delta){
+    state.update(delta);
     animation += delta * ANIMATION_FRAMERATE;
     if(animation >= ANIMATION_FRAMES) animation = 0;
 
@@ -76,16 +82,43 @@ public class Knight {
   }
 
   public void moveLeft(){
-    velocity.x -= SPEED;
-    if(velocity.x != 0) turnDirection = -1;
+    state.moveLeft();
   }
 
   public void moveRight(){
-    velocity.x += SPEED;
-    if(velocity.x != 0) turnDirection = 1;
+    state.moveRight();
+  }
+
+  public void stopMovingLeft(){
+    state.stopMovingLeft();
+  }
+
+  public void stopMovingRight(){
+    state.stopMovingRight();
   }
 
   public Vector2 getPosition(){
     return position;
+  }
+
+  public Vector2 getVelocity(){
+    return velocity;
+  }
+
+  public Vector2 getAcceleration() {
+    return acceleration;
+  }
+
+  public void setState(int state){
+    this.state = states[state];
+    this.state.start();
+  }
+
+  public int getTurnDirection() {
+    return turnDirection;
+  }
+
+  public void setTurnDirection(int turnDirection) {
+    this.turnDirection = turnDirection;
   }
 }

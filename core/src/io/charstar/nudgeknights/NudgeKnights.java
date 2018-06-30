@@ -167,10 +167,10 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   public boolean keyUp(int keycode) {
     switch(keycode){
       case Input.Keys.A:
-        knight.moveRight();
+        knight.stopMovingLeft();
         break;
       case Input.Keys.D:
-        knight.moveLeft();
+        knight.stopMovingRight();
         break;
       case Input.Keys.LEFT:
         cameraVelocity.x += CAMERA_SPEED;
