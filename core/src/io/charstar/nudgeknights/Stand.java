@@ -48,6 +48,16 @@ public class Stand extends State {
   }
 
   @Override
+  public void block() {
+    knight.setState(State.BLOCK);
+  }
+
+  @Override
+  public void stopBlocking() {
+
+  }
+
+  @Override
   public void draw(SpriteBatch batch) {
     batch.draw(frames[(int)animationTime],
         knight.getPosition().x - Knight.WIDTH / 2,

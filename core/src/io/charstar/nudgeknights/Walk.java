@@ -46,6 +46,16 @@ public class Walk extends State {
   }
 
   @Override
+  public void block() {
+
+  }
+
+  @Override
+  public void stopBlocking() {
+
+  }
+
+  @Override
   public void draw(SpriteBatch batch) {
     batch.draw(frames[(int)animationTime],
         knight.getPosition().x - Knight.WIDTH / 2,

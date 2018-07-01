@@ -40,6 +40,7 @@ public class Knight {
     states[State.STAND] = new Stand();
     states[State.WALK] = new Walk();
     states[State.ATTACK] = new Attack();
+    states[State.BLOCK] = new Block();
     for(State s : states){
       s.setKnight(this);
     }
@@ -100,6 +101,14 @@ public class Knight {
 
   public void attack(){
     state.attack();
+  }
+
+  public void block(){
+    state.block();
+  }
+
+  public void stopBlocking(){
+    state.stopBlocking();
   }
 
   public Vector2 getPosition(){

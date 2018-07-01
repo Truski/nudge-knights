@@ -4,12 +4,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Attack extends State {
+public class Block extends State {
 
   private static final TextureRegion[] frames = TextureRegion.split(
-      new Texture("attack.png"), Knight.WIDTH, Knight.HEIGHT)[0];
-  private static final int NUM_FRAMES = 10;
-  private static final int FPS = 15;
+      new Texture("block.png"), Knight.WIDTH, Knight.HEIGHT)[0];
+  private static final int NUM_FRAMES = 7;
+  private static final int FPS = 20;
 
   private float animationTime;
 
@@ -40,7 +40,7 @@ public class Attack extends State {
 
   @Override
   public void attack() {
-
+    knight.setState(State.ATTACK);
   }
 
   @Override
@@ -50,12 +50,12 @@ public class Attack extends State {
 
   @Override
   public void stopBlocking() {
-
+    knight.setState(State.STAND);
   }
 
   @Override
   public void draw(SpriteBatch batch) {
-    batch.draw(frames[(int)animationTime],
+    batch.draw(frames[(int) animationTime],
         knight.getPosition().x - Knight.WIDTH / 2,
         knight.getPosition().y - Knight.HEIGHT / 2,
         Knight.WIDTH / 2,
@@ -70,6 +70,6 @@ public class Attack extends State {
   @Override
   public void update(float delta) {
     animationTime += delta * FPS;
-    if(animationTime > NUM_FRAMES) knight.setState(State.STAND);
+    if (animationTime > NUM_FRAMES) animationTime -= delta * FPS;
   }
 }

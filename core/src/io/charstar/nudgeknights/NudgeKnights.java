@@ -140,6 +140,9 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
       case Input.Keys.D:
         knight.moveRight();
         break;
+      case Input.Keys.S:
+        knight.block();
+        break;
       case Input.Keys.LEFT:
         cameraVelocity.x -= CAMERA_SPEED;
         break;
@@ -171,6 +174,9 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
         break;
       case Input.Keys.D:
         knight.stopMovingRight();
+        break;
+      case Input.Keys.S:
+        knight.stopBlocking();
         break;
       case Input.Keys.LEFT:
         cameraVelocity.x += CAMERA_SPEED;
