@@ -20,22 +20,22 @@ public class Attack extends State {
 
   @Override
   public void moveLeft() {
-
+    knight.getVelocity().x -= Knight.SPEED;
   }
 
   @Override
   public void moveRight() {
-
+    knight.getVelocity().x += Knight.SPEED;
   }
 
   @Override
   public void stopMovingLeft() {
-
+    knight.getVelocity().x += Knight.SPEED;
   }
 
   @Override
   public void stopMovingRight() {
-
+    knight.getVelocity().x -= Knight.SPEED;
   }
 
   @Override

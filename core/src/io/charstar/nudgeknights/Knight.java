@@ -26,6 +26,7 @@ public class Knight {
 
   private State state;
   private State[] states;
+  private int returnState;
 
   public Knight(float x, float y) {
     position = new Vector2(WIDTH / 2, HEIGHT / 2);
@@ -45,6 +46,7 @@ public class Knight {
       s.setKnight(this);
     }
     setState(State.STAND);
+    returnState = -1;
   }
 
   public void draw(SpriteBatch batch){
@@ -84,18 +86,22 @@ public class Knight {
   }
 
   public void moveLeft(){
+    returnState = State.WALK;
     state.moveLeft();
   }
 
   public void moveRight(){
+    returnState = State.WALK;
     state.moveRight();
   }
 
   public void stopMovingLeft(){
+    returnState = -1;
     state.stopMovingLeft();
   }
 
   public void stopMovingRight(){
+    returnState = -1;
     state.stopMovingRight();
   }
 
@@ -124,6 +130,11 @@ public class Knight {
   }
 
   public void setState(int state){
+    if(state == State.STAND){
+      if(returnState != -1){
+        state = returnState;
+      }
+    }
     this.state = states[state];
     this.state.start();
   }

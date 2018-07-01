@@ -42,12 +42,12 @@ public class Walk extends State {
 
   @Override
   public void attack() {
-
+    knight.setState(State.ATTACK);
   }
 
   @Override
   public void block() {
-
+    knight.setState(State.BLOCK);
   }
 
   @Override
