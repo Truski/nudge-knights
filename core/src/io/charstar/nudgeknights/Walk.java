@@ -9,7 +9,7 @@ public class Walk extends State {
   private static final TextureRegion[] frames = TextureRegion.split(
       new Texture("walk.png"), Knight.WIDTH, Knight.HEIGHT)[0];
   private static final int NUM_FRAMES = 8;
-  private static final int FPS = 4;
+  private static final int FPS = 5;
 
   private float animationTime;
 

@@ -9,7 +9,7 @@ public class Stand extends State {
   private static final TextureRegion[] frames = TextureRegion.split(
       new Texture("stand.png"), Knight.WIDTH, Knight.HEIGHT)[0];
   private static final int NUM_FRAMES = 4;
-  private static final int FPS = 15;
+  private static final int FPS = 5;
 
   private float animationTime;
 

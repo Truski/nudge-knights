@@ -9,7 +9,7 @@ public class Block extends State {
   private static final TextureRegion[] frames = TextureRegion.split(
       new Texture("block.png"), Knight.WIDTH, Knight.HEIGHT)[0];
   private static final int NUM_FRAMES = 7;
-  private static final int FPS = 20;
+  private static final int FPS = 15;
   private static final float REWIND_MULTIPLIER = 1.5f;
 
   private float animationTime;
@@ -55,8 +55,10 @@ public class Block extends State {
 
   @Override
   public void stopBlocking() {
-    rewinding = true;
-    changeState = State.STAND;
+    if(!rewinding){
+      rewinding = true;
+      changeState = State.STAND;
+    }
   }
 
   @Override
