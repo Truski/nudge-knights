@@ -10,12 +10,16 @@ public class Block extends State {
       new Texture("block.png"), Knight.WIDTH, Knight.HEIGHT)[0];
   private static final int NUM_FRAMES = 7;
   private static final int FPS = 20;
+  private static final float REWIND_MULTIPLIER = 1.5f;
 
   private float animationTime;
+  private boolean rewinding;
+  private int changeState;
 
   @Override
   public void start() {
     animationTime = 0;
+    rewinding = false;
   }
 
   @Override
@@ -40,7 +44,8 @@ public class Block extends State {
 
   @Override
   public void attack() {
-    knight.setState(State.ATTACK);
+    rewinding = true;
+    changeState = State.ATTACK;
   }
 
   @Override
@@ -50,7 +55,8 @@ public class Block extends State {
 
   @Override
   public void stopBlocking() {
-    knight.setState(State.STAND);
+    rewinding = true;
+    changeState = State.STAND;
   }
 
   @Override
@@ -69,7 +75,15 @@ public class Block extends State {
 
   @Override
   public void update(float delta) {
-    animationTime += delta * FPS;
-    if (animationTime > NUM_FRAMES) animationTime -= delta * FPS;
+    if(!rewinding){
+      animationTime += delta * FPS;
+      if (animationTime > NUM_FRAMES) animationTime -= delta * FPS;
+    } else {
+      animationTime -= delta * FPS * REWIND_MULTIPLIER;
+      if(animationTime <= 0){
+        knight.setState(changeState);
+      }
+    }
+
   }
 }
