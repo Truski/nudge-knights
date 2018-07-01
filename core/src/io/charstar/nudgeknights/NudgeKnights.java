@@ -54,7 +54,7 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
     cameraPosition = new Vector3();
     cameraLocked = 1;
 
-    debug = true;
+    debug = false;
   }
 
   @Override
@@ -157,6 +157,7 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
         break;
       case Input.Keys.Y:
         cameraLocked = 1 - cameraLocked;
+        break;
       case Input.Keys.GRAVE:
         debug = !debug;
         break;
@@ -189,6 +190,7 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
         break;
       case Input.Keys.DOWN:
         cameraVelocity.y += CAMERA_SPEED;
+        break;
       default:
         System.out.println("Unknown key released: " + keycode);
     }
