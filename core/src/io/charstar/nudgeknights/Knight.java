@@ -10,8 +10,6 @@ public class Knight {
   static final int HEIGHT = 42;
   static final int SPEED = 50;
   private static final float GRAVITY = -20f;
-  private static final int ANIMATION_FRAMERATE = 15;
-  private static final int ANIMATION_FRAMES = 4;
   private static final int FLOOR = 0;
 
   private Vector2 position;
@@ -21,7 +19,6 @@ public class Knight {
 
   // State information
   private boolean inAir;
-  private float animation = 0;
   private int turnDirection;
 
   private State state;
@@ -57,8 +54,6 @@ public class Knight {
 
   public void update(float delta){
     state.update(delta);
-    animation += delta * ANIMATION_FRAMERATE;
-    if(animation >= ANIMATION_FRAMES) animation = 0;
 
     if(box.y < 0){
       position.y = HEIGHT / 2;
