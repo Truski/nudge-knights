@@ -10,12 +10,16 @@ public class Attack extends State {
       new Texture("attack.png"), Knight.WIDTH, Knight.HEIGHT)[0];
   private static final int NUM_FRAMES = 10;
   private static final int FPS = 15;
+  private static final int[] keyFrames = {0, 7};
+  private static final int[] speeds = {FPS, FPS / 2};
 
   private float animationTime;
+  private int keyFrameIndex;
 
   @Override
   public void start() {
     animationTime = 0;
+    keyFrameIndex = 0;
   }
 
   @Override
@@ -69,7 +73,10 @@ public class Attack extends State {
 
   @Override
   public void update(float delta) {
-    animationTime += delta * FPS;
+    if(keyFrameIndex != keyFrames.length - 1 && animationTime >= keyFrames[keyFrameIndex + 1]){
+      keyFrameIndex++;
+    }
+    animationTime += delta * speeds[keyFrameIndex];
     if(animationTime > NUM_FRAMES) knight.setState(State.STAND);
   }
 }
