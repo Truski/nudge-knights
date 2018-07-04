@@ -6,10 +6,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Knight {
+  static final int RED = 0;
+  static final int BLUE = 1;
   static final int WIDTH = 42;
   static final int HEIGHT = 42;
   static final int SPEED = 50;
 
+  private int color;
   private Vector2 position;
   private Vector2 velocity;
   private Vector2 acceleration;
@@ -21,7 +24,8 @@ public class Knight {
   private State state;
   private State[] states;
 
-  public Knight(float x, float y) {
+  public Knight(int color) {
+    this.color = color;
     position = new Vector2(WIDTH / 2, HEIGHT / 2);
     velocity = new Vector2();
     acceleration = new Vector2();
@@ -111,5 +115,9 @@ public class Knight {
 
   public void setTurnDirection(int turnDirection) {
     this.turnDirection = turnDirection;
+  }
+
+  public int getColor(){
+    return color;
   }
 }

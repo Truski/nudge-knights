@@ -18,6 +18,8 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
 
   // World
   private Background background;
+  private Knight redKnight;
+  private Knight blueKnight;
   private Knight knight;
 
   // Camera
@@ -38,7 +40,10 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
     batch = new SpriteBatch();
     shapeRenderer = new ShapeRenderer();
     background = new Background();
-    knight = new Knight(0, 0);
+
+    redKnight = new Knight(Knight.RED);
+    blueKnight = new Knight(Knight.BLUE);
+    knight = redKnight;
 
     camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
@@ -61,7 +66,8 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   public void render(float delta) {
 
     // Update World
-    knight.update(delta);
+    redKnight.update(delta);
+    blueKnight.update(delta);
     background.update(cameraPosition);
 
     // Update Camera
@@ -81,7 +87,8 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
     batch.begin();
 
     background.draw(batch);
-    knight.draw(batch);
+    redKnight.draw(batch);
+    blueKnight.draw(batch);
 
     batch.end();
 
@@ -157,6 +164,13 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
         break;
       case Input.Keys.GRAVE:
         debug = !debug;
+        break;
+      case Input.Keys.SPACE:
+        if(knight == redKnight){
+          knight = blueKnight;
+        } else {
+          knight = redKnight;
+        }
         break;
       default:
         System.out.println("Unknown key pressed: " + keycode);

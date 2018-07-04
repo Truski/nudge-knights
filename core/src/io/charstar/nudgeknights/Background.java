@@ -6,13 +6,13 @@ import com.badlogic.gdx.math.Vector3;
 
 public class Background {
   private static final Texture BACK_TREES =
-      new Texture("parallax-forest-back-trees.png");
+      new Texture("stages/forest/parallax-forest-back-trees.png");
   private static final Texture MIDDLE_TREES =
-      new Texture("parallax-forest-middle-trees.png");
+      new Texture("stages/forest/parallax-forest-middle-trees.png");
   private static final Texture FRONT_TREES =
-      new Texture("parallax-forest-front-trees.png");
+      new Texture("stages/forest/parallax-forest-front-trees.png");
   private static final Texture LIGHTS =
-      new Texture("parallax-forest-lights.png");
+      new Texture("stages/forest/parallax-forest-lights.png");
   private static final float RATIO = 272 / 160f;
   private static final int HEIGHT= 90;
   private static final int WIDTH = (int) (HEIGHT * RATIO);

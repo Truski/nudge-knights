@@ -6,8 +6,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Attack extends State {
 
-  private static final TextureRegion[] frames = TextureRegion.split(
-      new Texture("attack.png"), Knight.WIDTH, Knight.HEIGHT)[0];
+  private static final TextureRegion[] redFrames = TextureRegion.split(
+      new Texture("knight/red/attack.png"), Knight.WIDTH, Knight.HEIGHT)[0];
+  private static final TextureRegion[] blueFrames = TextureRegion.split(
+      new Texture("knight/blue/attack.png"), Knight.WIDTH, Knight.HEIGHT)[0];
+  private static final TextureRegion[][] frames = {redFrames, blueFrames};
   private static final int NUM_FRAMES = 10;
   private static final int FPS = 15;
   private static final int[] keyFrames = {0, 7};
@@ -59,7 +62,7 @@ public class Attack extends State {
 
   @Override
   public void draw(SpriteBatch batch) {
-    batch.draw(frames[(int)animationTime],
+    batch.draw(frames[knight.getColor()][(int)animationTime],
         knight.getPosition().x - Knight.WIDTH / 2,
         knight.getPosition().y - Knight.HEIGHT / 2,
         Knight.WIDTH / 2,
