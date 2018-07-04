@@ -27,6 +27,7 @@ public class GameCubeController extends ControllerAdapter {
 
   private Controller controller;
   private Knight knight;
+  private Camera camera;
 
   public GameCubeController(Controller controller){
     this.controller = controller;
@@ -36,6 +37,10 @@ public class GameCubeController extends ControllerAdapter {
   public void setCharacter(Knight knight){
     System.out.println("Set character");
     this.knight = knight;
+  }
+
+  public void setCamera(Camera camera){
+    this.camera = camera;
   }
 
   public void disconnect(){
@@ -51,6 +56,21 @@ public class GameCubeController extends ControllerAdapter {
       case BUTTON_B:
         knight.block();
         break;
+      case BUTTON_Y:
+        camera.toggleLock();
+        break;
+      case BUTTON_UP:
+        camera.startMoving(Direction.UP);
+        break;
+      case BUTTON_DOWN:
+        camera.startMoving(Direction.DOWN);
+        break;
+      case BUTTON_LEFT:
+        camera.startMoving(Direction.LEFT);
+        break;
+      case BUTTON_RIGHT:
+        camera.startMoving(Direction.RIGHT);
+        break;
     }
     return super.buttonDown(controller, buttonIndex);
   }
@@ -61,22 +81,35 @@ public class GameCubeController extends ControllerAdapter {
       case BUTTON_B:
         knight.stopBlocking();
         break;
+      case BUTTON_UP:
+        camera.stopMoving(Direction.UP);
+        break;
+      case BUTTON_DOWN:
+        camera.stopMoving(Direction.DOWN);
+        break;
+      case BUTTON_LEFT:
+        camera.stopMoving(Direction.LEFT);
+        break;
+      case BUTTON_RIGHT:
+        camera.stopMoving(Direction.RIGHT);
+        break;
     }
     return super.buttonUp(controller, buttonIndex);
   }
 
   @Override
   public boolean axisMoved(Controller controller, int axisIndex, float value) {
-    if(axisIndex == 3){
-      if(value > .5){
-        knight.moveRight();
-      } else if (value < -.5){
-        knight.moveLeft();
-      } else if(knight.getVelocity().x < 0 && value >-.5){
-        knight.stopMovingLeft();
-      } else if(knight.getVelocity().x > 0 && value <.5){
-        knight.stopMovingRight();
-      }
+    switch(axisIndex){
+      case CONTROL_STICK_X:
+        if(value > .5){
+          knight.moveRight();
+        } else if (value < -.5){
+          knight.moveLeft();
+        } else if(knight.getVelocity().x < 0 && value >-.5){
+          knight.stopMovingLeft();
+        } else if(knight.getVelocity().x > 0 && value <.5){
+          knight.stopMovingRight();
+        }
     }
     return super.axisMoved(controller, axisIndex, value);
   }
