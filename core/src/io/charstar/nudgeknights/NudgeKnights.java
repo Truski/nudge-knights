@@ -1,11 +1,14 @@
 package io.charstar.nudgeknights;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 
 public class NudgeKnights extends Game implements Screen, InputProcessor {
 
@@ -32,11 +35,16 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   private SpriteBatch batch;
   private ShapeRenderer shapeRenderer;
 
+  // Input
+  private GameCubeController gc1;
+  private GameCubeController gc2;
+
   // Debug
   private boolean debug;
 
   @Override
   public void create () {
+
     batch = new SpriteBatch();
     shapeRenderer = new ShapeRenderer();
     background = new Background();
@@ -60,6 +68,12 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
     cameraLocked = 1;
 
     debug = false;
+
+    Array<Controller> controllers = Controllers.getControllers();
+    gc1 = new GameCubeController(controllers.get(0));
+    gc2 = new GameCubeController(controllers.get(1));
+    gc1.setCharacter(redKnight);
+    gc2.setCharacter(blueKnight);
   }
 
   @Override

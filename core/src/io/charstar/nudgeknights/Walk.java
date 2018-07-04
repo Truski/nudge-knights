@@ -23,12 +23,12 @@ public class Walk extends State {
 
   @Override
   public void moveLeft() {
-    knight.getVelocity().x -= Knight.SPEED;
+
   }
 
   @Override
   public void moveRight() {
-    knight.getVelocity().x += Knight.SPEED;
+
   }
 
   @Override
