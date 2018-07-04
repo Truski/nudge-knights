@@ -9,8 +9,6 @@ public class Knight {
   static final int WIDTH = 42;
   static final int HEIGHT = 42;
   static final int SPEED = 50;
-  private static final float GRAVITY = -20f;
-  private static final int FLOOR = 0;
 
   private Vector2 position;
   private Vector2 velocity;
@@ -18,7 +16,6 @@ public class Knight {
   private Rectangle box;
 
   // State information
-  private boolean inAir;
   private int turnDirection;
 
   private State state;
@@ -30,7 +27,6 @@ public class Knight {
     acceleration = new Vector2();
     box = new Rectangle(0, 0, WIDTH, HEIGHT);
 
-    inAir = false;
     turnDirection = 1;
 
     states = new State[State.NUM_STATES];
@@ -54,13 +50,6 @@ public class Knight {
 
   public void update(float delta){
     state.update(delta);
-
-    if(box.y < 0){
-      position.y = HEIGHT / 2;
-      velocity.y = 0;
-      inAir = false;
-    }
-    acceleration.y = inAir ? GRAVITY : 0;
     Vector2 acceleration = new Vector2(this.acceleration).scl(delta);
     velocity.add(acceleration);
 
@@ -69,13 +58,6 @@ public class Knight {
 
     box.x = position.x - WIDTH / 2;
     box.y = position.y - HEIGHT / 2;
-  }
-
-  public void jump(){
-    if(inAir) return;
-
-    velocity.y = 35;
-    inAir = true;
   }
 
   public void moveLeft(){

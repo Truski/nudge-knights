@@ -131,9 +131,6 @@ public class NudgeKnights extends Game implements Screen, InputProcessor {
   @Override
   public boolean keyDown(int keycode) {
     switch(keycode){
-      case Input.Keys.SPACE:
-        knight.jump();
-        break;
       case Input.Keys.A:
         knight.moveLeft();
         break;
