@@ -53,7 +53,9 @@ public class Block extends State {
 
   @Override
   public void block() {
-
+    if(rewinding){
+      rewinding = false;
+    }
   }
 
   @Override
