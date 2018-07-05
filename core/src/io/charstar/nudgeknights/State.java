@@ -15,8 +15,7 @@ public abstract class State {
 
   public abstract void moveLeft();
   public abstract void moveRight();
-  public abstract void stopMovingLeft();
-  public abstract void stopMovingRight();
+  public abstract void stopMoving();
   public abstract void attack();
   public abstract void block();
   public abstract void stopBlocking();

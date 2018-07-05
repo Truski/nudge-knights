@@ -34,12 +34,7 @@ public class Stand extends State {
   }
 
   @Override
-  public void stopMovingLeft() {
-    // Does nothing
-  }
-
-  @Override
-  public void stopMovingRight() {
+  public void stopMoving() {
     // Does nothing
   }
 

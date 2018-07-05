@@ -36,12 +36,7 @@ public class Attack extends State {
   }
 
   @Override
-  public void stopMovingLeft() {
-
-  }
-
-  @Override
-  public void stopMovingRight() {
+  public void stopMoving() {
 
   }
 

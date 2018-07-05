@@ -36,12 +36,7 @@ public class Block extends State {
   }
 
   @Override
-  public void stopMovingLeft() {
-
-  }
-
-  @Override
-  public void stopMovingRight() {
+  public void stopMoving() {
 
   }
 

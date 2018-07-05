@@ -68,7 +68,7 @@ public class KeyboardController implements InputProcessor {
         if (rightDown) {
           knight.moveRight();
         } else {
-          knight.stopMovingLeft();
+          knight.stopMoving();
         }
         break;
       case Input.Keys.D:
@@ -76,7 +76,7 @@ public class KeyboardController implements InputProcessor {
         if (leftDown) {
           knight.moveLeft();
         } else {
-          knight.stopMovingRight();
+          knight.stopMoving();
         }
         break;
       case Input.Keys.S:

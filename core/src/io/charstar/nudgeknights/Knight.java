@@ -76,12 +76,8 @@ public class Knight {
     state.moveRight();
   }
 
-  public void stopMovingLeft(){
-    state.stopMovingLeft();
-  }
-
-  public void stopMovingRight(){
-    state.stopMovingRight();
+  public void stopMoving(){
+    state.stopMoving();
   }
 
   public void attack(){

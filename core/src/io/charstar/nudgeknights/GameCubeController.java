@@ -105,10 +105,8 @@ public class GameCubeController extends ControllerAdapter {
           knight.moveRight();
         } else if (value < -.5){
           knight.moveLeft();
-        } else if(knight.getVelocity().x < 0 && value >-.5){
-          knight.stopMovingLeft();
-        } else if(knight.getVelocity().x > 0 && value <.5){
-          knight.stopMovingRight();
+        } else {
+          knight.stopMoving();
         }
     }
     return super.axisMoved(controller, axisIndex, value);

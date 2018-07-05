@@ -40,7 +40,7 @@ public class Walk extends State {
   @Override
   public void moveLeft() {
     if(moveDirection == Direction.RIGHT){
-      knight.stopMovingRight();
+      knight.stopMoving();
       knight.moveLeft();
     }
   }
@@ -48,19 +48,13 @@ public class Walk extends State {
   @Override
   public void moveRight() {
     if(moveDirection == Direction.LEFT){
-      knight.stopMovingLeft();
+      knight.stopMoving();
       knight.moveRight();
     }
   }
 
   @Override
-  public void stopMovingLeft() {
-    knight.getVelocity().x = 0;
-    knight.setState(State.STAND);
-  }
-
-  @Override
-  public void stopMovingRight() {
+  public void stopMoving() {
     knight.getVelocity().x = 0;
     knight.setState(State.STAND);
   }
