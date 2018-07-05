@@ -18,34 +18,35 @@ public class Background {
   private static final int WIDTH = (int) (HEIGHT * RATIO);
 
   private float scroll = 0;
-  private float lightBonus;
+  private float backBonus;
   private float middleBonus;
   private float frontBonus;
   private int locX;
 
   public void draw(SpriteBatch batch){
-    batch.draw(BACK_TREES, WIDTH * (-1 + locX / WIDTH), 0, WIDTH, HEIGHT);
-    batch.draw(BACK_TREES, WIDTH * (locX / WIDTH), 0, WIDTH, HEIGHT);
-    batch.draw(BACK_TREES, WIDTH * (1 + locX / WIDTH), 0, WIDTH, HEIGHT);
 
-    batch.draw(LIGHTS, WIDTH * (-1 + locX / WIDTH) + lightBonus, 0, WIDTH, HEIGHT);
-    batch.draw(LIGHTS, WIDTH * (locX / WIDTH) + lightBonus, 0, WIDTH, HEIGHT);
-    batch.draw(LIGHTS, WIDTH * (1 + locX / WIDTH) + lightBonus, 0, WIDTH, HEIGHT);
+    batch.draw(BACK_TREES, WIDTH * (-1 + locX / WIDTH) + backBonus, 0, WIDTH, HEIGHT);
+    batch.draw(BACK_TREES, WIDTH * (locX / WIDTH) + backBonus, 0, WIDTH, HEIGHT);
+    batch.draw(BACK_TREES, WIDTH * (1 + locX / WIDTH) + backBonus, 0, WIDTH, HEIGHT);
 
-    batch.draw(MIDDLE_TREES, WIDTH * (-1 + locX / WIDTH) + middleBonus, 0, WIDTH, HEIGHT);
-    batch.draw(MIDDLE_TREES, WIDTH * (locX / WIDTH) + middleBonus, 0, WIDTH, HEIGHT);
-    batch.draw(MIDDLE_TREES, WIDTH * (1 + locX / WIDTH) + middleBonus, 0, WIDTH, HEIGHT);
+    batch.draw(LIGHTS, WIDTH * (-1 + locX / WIDTH) + middleBonus, 0, WIDTH, HEIGHT);
+    batch.draw(LIGHTS, WIDTH * (locX / WIDTH) + middleBonus, 0, WIDTH, HEIGHT);
+    batch.draw(LIGHTS, WIDTH * (1 + locX / WIDTH) + middleBonus, 0, WIDTH, HEIGHT);
 
-    batch.draw(FRONT_TREES, WIDTH * (-1 + locX / WIDTH) + frontBonus, 0, WIDTH, HEIGHT);
-    batch.draw(FRONT_TREES, WIDTH * (locX / WIDTH) + frontBonus, 0, WIDTH, HEIGHT);
-    batch.draw(FRONT_TREES, WIDTH * (1 + locX / WIDTH) + frontBonus, 0, WIDTH, HEIGHT);
+    batch.draw(MIDDLE_TREES, WIDTH * (-1 + locX / WIDTH) + frontBonus, 0, WIDTH, HEIGHT);
+    batch.draw(MIDDLE_TREES, WIDTH * (locX / WIDTH) + frontBonus, 0, WIDTH, HEIGHT);
+    batch.draw(MIDDLE_TREES, WIDTH * (1 + locX / WIDTH) + frontBonus, 0, WIDTH, HEIGHT);
+
+    batch.draw(FRONT_TREES, WIDTH * (-1 + locX / WIDTH), 0, WIDTH, HEIGHT);
+    batch.draw(FRONT_TREES, WIDTH * (locX / WIDTH), 0, WIDTH, HEIGHT);
+    batch.draw(FRONT_TREES, WIDTH * (1 + locX / WIDTH), 0, WIDTH, HEIGHT);
   }
 
   public void update(Vector3 cameraPosition){
     scroll = cameraPosition.x / 500;
     locX = (int) cameraPosition.x;
-    lightBonus = (scroll * 35) % WIDTH;
-    middleBonus = (scroll * 25) % WIDTH;
-    frontBonus = (scroll * 50) % WIDTH;
+    backBonus = (scroll * 10) % WIDTH;
+    middleBonus = (scroll * 20) % WIDTH;
+    frontBonus = (scroll * 40) % WIDTH;
   }
 }
