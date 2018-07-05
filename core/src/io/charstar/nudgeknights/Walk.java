@@ -18,11 +18,17 @@ public class Walk extends State {
   private float animationTime;
 
   private boolean backwards;
+  private Direction moveDirection;
 
   @Override
   public void start() {
-    backwards = knight.getVelocity().x < 0 && knight.getTurnDirection() == Direction.RIGHT
-        || knight.getVelocity().x > 0 && knight.getTurnDirection() == Direction.LEFT;
+    if(knight.getVelocity().x > 0){
+      moveDirection = Direction.RIGHT;
+    } else {
+      moveDirection = Direction.LEFT;
+    }
+    backwards = moveDirection == Direction.LEFT && knight.getTurnDirection() == Direction.RIGHT
+        || moveDirection == Direction.RIGHT && knight.getTurnDirection() == Direction.LEFT;
     if(backwards){
       knight.getVelocity().x *= BACKWARDS_MULTIPLIER;
       animationTime = NUM_FRAMES - .01f;
@@ -33,12 +39,18 @@ public class Walk extends State {
 
   @Override
   public void moveLeft() {
-
+    if(moveDirection == Direction.RIGHT){
+      knight.stopMovingRight();
+      knight.moveLeft();
+    }
   }
 
   @Override
   public void moveRight() {
-
+    if(moveDirection == Direction.LEFT){
+      knight.stopMovingLeft();
+      knight.moveRight();
+    }
   }
 
   @Override

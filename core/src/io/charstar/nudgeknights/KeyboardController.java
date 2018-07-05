@@ -7,6 +7,8 @@ import com.badlogic.gdx.InputProcessor;
 public class KeyboardController implements InputProcessor {
   private Knight knight;
   private Camera camera;
+  private boolean leftDown;
+  private boolean rightDown;
 
   public KeyboardController() {
     Gdx.input.setInputProcessor(this);
@@ -24,9 +26,11 @@ public class KeyboardController implements InputProcessor {
   public boolean keyDown(int keycode) {
     switch(keycode){
       case Input.Keys.A:
+        leftDown = true;
         knight.moveLeft();
         break;
       case Input.Keys.D:
+        rightDown = true;
         knight.moveRight();
         break;
       case Input.Keys.S:
@@ -60,10 +64,20 @@ public class KeyboardController implements InputProcessor {
   public boolean keyUp(int keycode) {
     switch(keycode){
       case Input.Keys.A:
-        knight.stopMovingLeft();
+        leftDown = false;
+        if (rightDown) {
+          knight.moveRight();
+        } else {
+          knight.stopMovingLeft();
+        }
         break;
       case Input.Keys.D:
-        knight.stopMovingRight();
+        rightDown = false;
+        if (leftDown) {
+          knight.moveLeft();
+        } else {
+          knight.stopMovingRight();
+        }
         break;
       case Input.Keys.S:
         knight.stopBlocking();
