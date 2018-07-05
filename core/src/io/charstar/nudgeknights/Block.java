@@ -75,7 +75,7 @@ public class Block extends State {
         Knight.HEIGHT / 2,
         Knight.WIDTH,
         Knight.HEIGHT,
-        knight.getTurnDirection(),
+        knight.getTurnMultiplier(),
         1,
         0);
   }

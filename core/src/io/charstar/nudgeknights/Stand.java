@@ -24,14 +24,12 @@ public class Stand extends State {
   @Override
   public void moveLeft() {
     knight.getVelocity().x = -Knight.SPEED;
-    knight.setTurnDirection(-1);
     knight.setState(State.WALK);
   }
 
   @Override
   public void moveRight() {
     knight.getVelocity().x = Knight.SPEED;
-    knight.setTurnDirection(1);
     knight.setState(State.WALK);
   }
 
@@ -69,7 +67,7 @@ public class Stand extends State {
         Knight.HEIGHT / 2,
         Knight.WIDTH,
         Knight.HEIGHT,
-        knight.getTurnDirection(),
+        knight.getTurnMultiplier(),
         1,
         0);
   }

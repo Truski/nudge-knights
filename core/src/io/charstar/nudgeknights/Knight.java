@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Knight {
   static final int RED = 0;
   static final int BLUE = 1;
+
   static final int WIDTH = 42;
   static final int HEIGHT = 42;
   static final int SPEED = 50;
@@ -19,19 +20,22 @@ public class Knight {
   private Rectangle box;
 
   // State information
-  private int turnDirection;
-
+  private Direction turnDirection;
   private State state;
   private State[] states;
 
   public Knight(int color) {
     this.color = color;
+    if(color == RED){
+      turnDirection = Direction.RIGHT;
+    } else {
+      turnDirection = Direction.LEFT;
+    }
+
     position = new Vector2(WIDTH / 2, HEIGHT / 2);
     velocity = new Vector2();
     acceleration = new Vector2();
     box = new Rectangle(0, 0, WIDTH, HEIGHT);
-
-    turnDirection = 1;
 
     states = new State[State.NUM_STATES];
     states[State.STAND] = new Stand();
@@ -109,11 +113,19 @@ public class Knight {
     this.state.start();
   }
 
-  public int getTurnDirection() {
+  public Direction getTurnDirection() {
     return turnDirection;
   }
 
-  public void setTurnDirection(int turnDirection) {
+  public int getTurnMultiplier(){
+    if(turnDirection == Direction.RIGHT){
+      return 1;
+    } else {
+      return -1;
+    }
+  }
+
+  public void setTurnDirection(Direction turnDirection) {
     this.turnDirection = turnDirection;
   }
 
