@@ -15,7 +15,7 @@ public class Camera extends OrthographicCamera{
 
     velocity = new Vector3();
     position.set(viewportWidth / 2f, viewportHeight / 2f, 0);
-    locked = false;
+    locked = true;
     update();
   }
 

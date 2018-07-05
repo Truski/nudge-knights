@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 public class Knight {
   static final int RED = 0;
   static final int BLUE = 1;
@@ -23,8 +25,16 @@ public class Knight {
   private Direction turnDirection;
   private State state;
   private State[] states;
+  private int attacks;
+  private float blockPower;
+
+  private ArrayList<KnightListener> observers;
 
   public Knight(int color) {
+    observers = new ArrayList<KnightListener>();
+    attacks = 3;
+    blockPower = 1;
+
     this.color = color;
     if(color == RED){
       turnDirection = Direction.RIGHT;
@@ -48,11 +58,32 @@ public class Knight {
     setState(State.STAND);
   }
 
+  public void notifyListeners(){
+    for(KnightListener observer : observers){
+      observer.update(this);
+    }
+  }
+
+  public void registerListener(KnightListener listener){
+    observers.add(listener);
+    listener.update(this);
+  }
+
+  public void unregisterListener(KnightListener listener){
+    observers.remove(listener);
+  }
+
   public void draw(SpriteBatch batch){
     state.draw(batch);
   }
 
   public void draw(ShapeRenderer renderer){
+    renderer.set(ShapeRenderer.ShapeType.Filled);
+    if(color == RED){
+      renderer.setColor(1, 0, 0, .5f);
+    } else if (color == BLUE){
+      renderer.setColor(0, 0, 1, .5f);
+    }
     renderer.rect(box.x, box.y, box.width, box.height);
   }
 
@@ -81,11 +112,15 @@ public class Knight {
   }
 
   public void attack(){
-    state.attack();
+    if(attacks > 0){
+      state.attack();
+    }
   }
 
   public void block(){
-    state.block();
+    if(blockPower > 0){
+      state.block();
+    }
   }
 
   public void stopBlocking(){
@@ -127,5 +162,26 @@ public class Knight {
 
   public int getColor(){
     return color;
+  }
+
+  public int getAttacks() {
+    return attacks;
+  }
+
+  public void setAttacks(int attacks) {
+    this.attacks = attacks;
+    notifyListeners();
+  }
+
+  public float getBlockPower() {
+    return blockPower;
+  }
+
+  public void setBlockPower(float blockPower) {
+    this.blockPower = blockPower;
+    if(this.blockPower < 0){
+      this.blockPower = 0;
+    }
+    notifyListeners();
   }
 }

@@ -14,6 +14,7 @@ public class Block extends State {
   private static final int NUM_FRAMES = 7;
   private static final int FPS = 15;
   private static final float REWIND_MULTIPLIER = 1.5f;
+  private static final float DECAY_RATE = .25f;
 
   private float animationTime;
   private boolean rewinding;
@@ -86,6 +87,9 @@ public class Block extends State {
         knight.setState(changeState);
       }
     }
-
+    knight.setBlockPower(knight.getBlockPower() - delta * DECAY_RATE);
+    if(knight.getBlockPower() == 0){
+      knight.stopBlocking();
+    }
   }
 }

@@ -21,6 +21,7 @@ public class Attack extends State {
 
   @Override
   public void start() {
+    knight.setAttacks(knight.getAttacks() - 1);
     animationTime = 0;
     keyFrameIndex = 0;
   }

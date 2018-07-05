@@ -23,8 +23,12 @@ public class NudgeKnights extends Game implements Screen {
   private Knight redKnight;
   private Knight blueKnight;
 
+  // Interface
+  private HUD hud;
+
   // Camera
   private Camera camera;
+  private OrthographicCamera hudCamera;
 
   // Rendering
   private SpriteBatch batch;
@@ -42,6 +46,7 @@ public class NudgeKnights extends Game implements Screen {
 
     batch = new SpriteBatch();
     shapeRenderer = new ShapeRenderer();
+    shapeRenderer.setAutoShapeType(true);
     background = new Background();
 
     redKnight = new Knight(Knight.RED);
@@ -50,6 +55,7 @@ public class NudgeKnights extends Game implements Screen {
     camera = new Camera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     camera.follow(redKnight);
     camera.toggleLock();
+    hudCamera = new Camera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 
     batch.setProjectionMatrix(camera.combined);
     shapeRenderer.setProjectionMatrix(camera.combined);
@@ -66,6 +72,10 @@ public class NudgeKnights extends Game implements Screen {
     keyboardController = new KeyboardController();
     keyboardController.setCharacter(blueKnight);
     keyboardController.setCamera(camera);
+
+    hud = new HUD();
+    blueKnight.registerListener(hud);
+    redKnight.registerListener(hud);
   }
 
   @Override
@@ -92,17 +102,20 @@ public class NudgeKnights extends Game implements Screen {
 
     batch.end();
 
-    if(debug){
-      Gdx.gl.glEnable(GL20.GL_BLEND);
-      shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-      shapeRenderer.setColor(0, 0, 1, .5f);
+    batch.setProjectionMatrix(hudCamera.combined);
+    shapeRenderer.setProjectionMatrix(hudCamera.combined);
 
+    Gdx.gl.glEnable(GL20.GL_BLEND);
+    shapeRenderer.begin();
+
+    if(debug){
       redKnight.draw(shapeRenderer);
       blueKnight.draw(shapeRenderer);
-
-      shapeRenderer.end();
-      Gdx.gl.glDisable(GL20.GL_BLEND);
     }
+    hud.draw(batch, shapeRenderer);
+
+    shapeRenderer.end();
+    Gdx.gl.glDisable(GL20.GL_BLEND);
   }
 
   @Override
