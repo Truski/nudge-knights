@@ -36,6 +36,9 @@ public class KeyboardController implements InputProcessor {
       case Input.Keys.S:
         knight.block();
         break;
+      case Input.Keys.E:
+        knight.getHit();
+        break;
       case Input.Keys.UP:
         camera.startMoving(Direction.UP);
         break;

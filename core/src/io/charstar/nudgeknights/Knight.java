@@ -27,6 +27,7 @@ public class Knight {
   private State[] states;
   private int attacks;
   private float blockPower;
+  private Knockback knockback;
 
   private ArrayList<KnightListener> observers;
 
@@ -46,6 +47,7 @@ public class Knight {
     velocity = new Vector2();
     acceleration = new Vector2();
     box = new Rectangle(0, 0, WIDTH, HEIGHT);
+    knockback = new Knockback();
 
     states = new State[State.NUM_STATES];
     states[State.STAND] = new Stand();
@@ -89,6 +91,8 @@ public class Knight {
 
   public void update(float delta){
     state.update(delta);
+    knockback.update(delta, this);
+
     Vector2 acceleration = new Vector2(this.acceleration).scl(delta);
     velocity.add(acceleration);
 
@@ -183,5 +187,14 @@ public class Knight {
       this.blockPower = 0;
     }
     notifyListeners();
+  }
+
+  public void getHit(){
+    if(color == RED){
+      knockback.set(-15, .5f);
+    } else if (color == BLUE){
+      knockback.set(15, .5f);
+    }
+    knockback.setActive(true);
   }
 }

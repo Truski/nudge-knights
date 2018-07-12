@@ -18,16 +18,14 @@ public class Knockback {
     return active;
   }
 
-  public void update(float delta){
+  public void update(float delta, Knight knight){
     if(active){
+      knight.getVelocity().x = velocity;
       timeRemaining -= delta;
       if(timeRemaining <= 0){
         active = false;
+        knight.getVelocity().x = 0;
       }
     }
-  }
-
-  public void apply(Knight knight){
-    knight.getVelocity().x = velocity;
   }
 }

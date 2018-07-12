@@ -59,6 +59,9 @@ public class GameCubeController extends ControllerAdapter {
       case BUTTON_Y:
         camera.toggleLock();
         break;
+      case BUTTON_X:
+        knight.getHit();
+        break;
       case BUTTON_UP:
         camera.startMoving(Direction.UP);
         break;
